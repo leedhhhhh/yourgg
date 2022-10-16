@@ -11,6 +11,29 @@ export const LineContainer = styled.div`
   cursor: pointer;
 `;
 
+export const LaneBox = styled.div`
+  margin-top: 20px;
+  height: 45px;
+  border: 1px dashed transparent;
+  cursor: pointer;
+  :hover {
+    height: 53px;
+    width: 420px;
+    border: 1px dashed #a5a4a4;
+    padding-left: 10px;
+    margin-left: -12px;
+  }
+`;
+
+export const ChampContainer = styled.div`
+  margin-top: 20px;
+  height: 45px;
+`;
+
+export const ChampBox = styled.div`
+  padding-bottom: 50px;
+`;
+
 export const LineImage = styled.div`
   float: left;
   padding-right: 10px;
