@@ -80,48 +80,54 @@ function SoloRank() {
         <Loading />
       ) : (
         <>
-          <div>
-            <X.PlayerInfo>
+          {soloRankData?.mostChampions.length === 0 ? (
+            <X.NoGameInfo>
+              최근 30게임에 대한 정보가 존재하지 않습니다😢
+            </X.NoGameInfo>
+          ) : (
+            <>
+              {" "}
               <div>
-                <X.Role>{Number(soloRankData?.role).toFixed(2)}</X.Role>{" "}
-                <X.RoleText>인분</X.RoleText>
+                <X.PlayerInfo>
+                  <div>
+                    <X.Role>{Number(soloRankData?.role).toFixed(2)}</X.Role>{" "}
+                    <X.RoleText>인분</X.RoleText>
+                  </div>
+                  <div>
+                    <X.Role>
+                      {Number(soloRankData?.laning).toFixed(1)} :{" "}
+                      {eval(
+                        `10 - ${Number(soloRankData?.laning).toFixed(1)}`
+                      ).toFixed(1)}
+                    </X.Role>
+                    <X.LaningText>라인전</X.LaningText>
+                  </div>
+                  <div>
+                    <X.Role>{Number(soloRankData?.kda).toFixed(2)}</X.Role>{" "}
+                    <X.KdaText>KDA</X.KdaText>
+                  </div>
+                </X.PlayerInfo>
+                <X.GraphInfo>
+                  <TierGraph />
+                </X.GraphInfo>
               </div>
-              <div>
-                <X.Role>
-                  {Number(soloRankData?.laning).toFixed(1)} :{" "}
-                  {eval(
-                    `10 - ${Number(soloRankData?.laning).toFixed(1)}`
-                  ).toFixed(1)}
-                </X.Role>
-                <X.LaningText>라인전</X.LaningText>
-              </div>
-              <div>
-                <X.Role>{Number(soloRankData?.kda).toFixed(2)}</X.Role>{" "}
-                <X.KdaText>KDA</X.KdaText>
-              </div>
-            </X.PlayerInfo>
-            <X.GraphInfo>
-              <TierGraph />
-            </X.GraphInfo>
-          </div>
-
-          <X.LaneContainer>
-            <X.LaneImg onClick={() => onHandle("All")} src={allLink} />
-            <X.LaneImg onClick={() => onHandle("Top")} src={topLink} />
-            <X.LaneImg onClick={() => onHandle("Jug")} src={jugLink} />
-            <X.LaneImg onClick={() => onHandle("Mid")} src={midLink} />
-            <X.LaneImg onClick={() => onHandle("Adc")} src={adcLink} />
-            <X.LaneImg onClick={() => onHandle("Sup")} src={supLink} />
-          </X.LaneContainer>
-
-          <X.Hr />
-
-          {lane === "All" && <All />}
-          {lane === "Top" && <Top />}
-          {lane === "Jug" && <Jungle />}
-          {lane === "Mid" && <Mid />}
-          {lane === "Adc" && <Adc />}
-          {lane === "Sup" && <Support />}
+              <X.LaneContainer>
+                <X.LaneImg onClick={() => onHandle("All")} src={allLink} />
+                <X.LaneImg onClick={() => onHandle("Top")} src={topLink} />
+                <X.LaneImg onClick={() => onHandle("Jug")} src={jugLink} />
+                <X.LaneImg onClick={() => onHandle("Mid")} src={midLink} />
+                <X.LaneImg onClick={() => onHandle("Adc")} src={adcLink} />
+                <X.LaneImg onClick={() => onHandle("Sup")} src={supLink} />
+              </X.LaneContainer>
+              <X.Hr />
+              {lane === "All" && <All />}
+              {lane === "Top" && <Top />}
+              {lane === "Jug" && <Jungle />}
+              {lane === "Mid" && <Mid />}
+              {lane === "Adc" && <Adc />}
+              {lane === "Sup" && <Support />}
+            </>
+          )}
         </>
       )}
     </>

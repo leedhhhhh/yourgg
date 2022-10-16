@@ -51,3 +51,9 @@ export const LaneImg = styled.img`
   padding: 5px;
   cursor: pointer;
 `;
+
+export const NoGameInfo = styled.div`
+  margin-top: 100px;
+  font-size: 15px;
+  font-family: "Source Sans Pro", sans-serif;
+`;
