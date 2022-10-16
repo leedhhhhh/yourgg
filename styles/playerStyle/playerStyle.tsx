@@ -6,9 +6,22 @@ export const Container = styled.div`
   margin: 0 auto;
 `;
 
+export const Title = styled.div`
+  color: #0070f3;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: bolder;
+  font-size: 2.8rem;
+  text-align: center;
+  margin-top: 80px;
+  cursor: pointer;
+  :hover {
+    text-decoration: underline;
+  }
+`;
+
 export const PlayerName = styled.div`
   font-size: 3.8rem;
-  margin-top: 153px;
+  margin-top: 113px;
   font-family: "Source Sans Pro", sans-serif;
   font-weight: bolder;
 `;
