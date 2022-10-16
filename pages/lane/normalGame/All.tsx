@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import * as X from "../../../styles/laneStyle/LaneStyle";
-import { playerNameState } from "../../api/atom";
+import { laneState, playerNameState } from "../../api/atom";
 import { getNormalInfo } from "../../games/Normal";
 import {
   adcLink,
@@ -15,10 +15,16 @@ import {
 
 function All() {
   const playerName = useRecoilValue(playerNameState);
-  const { data: soloRankData, isLoading } = useQuery<ISoloRankProps>(
+  const [lane, setLane] = useRecoilState(laneState);
+
+  const { data: normalData, isLoading } = useQuery<ISoloRankProps>(
     "Noraml",
     () => getNormalInfo(playerName)
   );
+
+  const onHandle = (data: string) => {
+    setLane(data);
+  };
 
   return (
     <X.MainContainer>
@@ -29,46 +35,123 @@ function All() {
         <X.Lane>라인전</X.Lane>
         <X.KdaContainer>킬뎃</X.KdaContainer>
       </X.InfoContainer>
+
       {/* 라인 */}
       <div>
-        {soloRankData?.mostLanes.map((data) => (
+        {normalData?.mostLanes.map((data) => (
           <>
-            <X.LineContainer>
-              <div>
-                <X.LineImage>
-                  {data.lane === "Top" && <X.LaneImg src={topLink} />}
-                  {data.lane === "Jug" && <X.LaneImg src={jugLink} />}
-                  {data.lane === "Mid" && <X.LaneImg src={midLink} />}
-                  {data.lane === "Adc" && <X.LaneImg src={adcLink} />}
-                  {data.lane === "Sup" && <X.LaneImg src={supLink} />}
-                </X.LineImage>
+            {data.lane === "Top" && (
+              <X.LineContainer onClick={() => onHandle("Top")}>
+                <div>
+                  <X.LineImage>
+                    <X.LaneImg onClick={() => onHandle("Top")} src={topLink} />
+                  </X.LineImage>
 
-                <X.Line>
-                  <X.LineText>
-                    {data.lane === "Top" && "Top"}
-                    {data.lane === "Jug" && "Jungle"}
-                    {data.lane === "Mid" && "Mid"}
-                    {data.lane === "Adc" && "Adc"}
-                    {data.lane === "Sup" && "Support"}
-                  </X.LineText>
-                  <X.LineGameText>{data.matchCount} 경기</X.LineGameText>
-                </X.Line>
+                  <X.Line>
+                    <X.LineText>{data.lane === "Top" && "Top"}</X.LineText>
+                    <X.LineGameText>{data.matchCount} 경기</X.LineGameText>
+                  </X.Line>
 
-                <X.LineWinRate>
-                  {Number(data.winRate).toFixed(0)}%
-                </X.LineWinRate>
-                <X.LineRole>{Number(data.role).toFixed(2)}</X.LineRole>
-                <X.LineRate>{Number(data.laning).toFixed(1)}</X.LineRate>
-                <X.LineKda>{Number(data.kda).toFixed(2)}</X.LineKda>
-              </div>
-            </X.LineContainer>
+                  <X.LineWinRate>
+                    {Number(data.winRate).toFixed(0)}%
+                  </X.LineWinRate>
+                  <X.LineRole>{Number(data.role).toFixed(2)}</X.LineRole>
+                  <X.LineRate>{Number(data.laning).toFixed(1)}</X.LineRate>
+                  <X.LineKda>{Number(data.kda).toFixed(2)}</X.LineKda>
+                </div>
+              </X.LineContainer>
+            )}
+            {data.lane === "Jug" && (
+              <X.LineContainer onClick={() => onHandle("Jug")}>
+                <div>
+                  <X.LineImage>
+                    <X.LaneImg onClick={() => onHandle("Jug")} src={jugLink} />
+                  </X.LineImage>
+
+                  <X.Line>
+                    <X.LineText>{data.lane === "Jug" && "Jungle"}</X.LineText>
+                    <X.LineGameText>{data.matchCount} 경기</X.LineGameText>
+                  </X.Line>
+
+                  <X.LineWinRate>
+                    {Number(data.winRate).toFixed(0)}%
+                  </X.LineWinRate>
+                  <X.LineRole>{Number(data.role).toFixed(2)}</X.LineRole>
+                  <X.LineRate>{Number(data.laning).toFixed(1)}</X.LineRate>
+                  <X.LineKda>{Number(data.kda).toFixed(2)}</X.LineKda>
+                </div>
+              </X.LineContainer>
+            )}
+            {data.lane === "Mid" && (
+              <X.LineContainer onClick={() => onHandle("Mid")}>
+                <div>
+                  <X.LineImage>
+                    <X.LaneImg onClick={() => onHandle("Mid")} src={midLink} />
+                  </X.LineImage>
+
+                  <X.Line>
+                    <X.LineText>{data.lane === "Mid" && "Mid"}</X.LineText>
+                    <X.LineGameText>{data.matchCount} 경기</X.LineGameText>
+                  </X.Line>
+
+                  <X.LineWinRate>
+                    {Number(data.winRate).toFixed(0)}%
+                  </X.LineWinRate>
+                  <X.LineRole>{Number(data.role).toFixed(2)}</X.LineRole>
+                  <X.LineRate>{Number(data.laning).toFixed(1)}</X.LineRate>
+                  <X.LineKda>{Number(data.kda).toFixed(2)}</X.LineKda>
+                </div>
+              </X.LineContainer>
+            )}
+            {data.lane === "Adc" && (
+              <X.LineContainer onClick={() => onHandle("Adc")}>
+                <div>
+                  <X.LineImage>
+                    <X.LaneImg onClick={() => onHandle("Adc")} src={adcLink} />
+                  </X.LineImage>
+
+                  <X.Line>
+                    <X.LineText>{data.lane === "Adc" && "Adc"}</X.LineText>
+                    <X.LineGameText>{data.matchCount} 경기</X.LineGameText>
+                  </X.Line>
+
+                  <X.LineWinRate>
+                    {Number(data.winRate).toFixed(0)}%
+                  </X.LineWinRate>
+                  <X.LineRole>{Number(data.role).toFixed(2)}</X.LineRole>
+                  <X.LineRate>{Number(data.laning).toFixed(1)}</X.LineRate>
+                  <X.LineKda>{Number(data.kda).toFixed(2)}</X.LineKda>
+                </div>
+              </X.LineContainer>
+            )}
+            {data.lane === "Sup" && (
+              <X.LineContainer onClick={() => onHandle("Sup")}>
+                <div>
+                  <X.LineImage>
+                    <X.LaneImg onClick={() => onHandle("Sup")} src={supLink} />
+                  </X.LineImage>
+
+                  <X.Line>
+                    <X.LineText>{data.lane === "Sup" && "Support"}</X.LineText>
+                    <X.LineGameText>{data.matchCount} 경기</X.LineGameText>
+                  </X.Line>
+
+                  <X.LineWinRate>
+                    {Number(data.winRate).toFixed(0)}%
+                  </X.LineWinRate>
+                  <X.LineRole>{Number(data.role).toFixed(2)}</X.LineRole>
+                  <X.LineRate>{Number(data.laning).toFixed(1)}</X.LineRate>
+                  <X.LineKda>{Number(data.kda).toFixed(2)}</X.LineKda>
+                </div>
+              </X.LineContainer>
+            )}
           </>
         ))}
       </div>
 
       {/* 챔프 */}
       <div>
-        {soloRankData?.mostChampions.map((data) => (
+        {normalData?.mostChampions.map((data) => (
           <>
             <X.LineContainer>
               <X.LineImage>

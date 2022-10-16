@@ -113,11 +113,6 @@ function FreeRank() {
 
               <X.LaneContainer>
                 <X.LaneImg onClick={() => onHandle("All")} src={allLink} />
-                <X.LaneImg onClick={() => onHandle("Top")} src={topLink} />
-                <X.LaneImg onClick={() => onHandle("Jug")} src={jugLink} />
-                <X.LaneImg onClick={() => onHandle("Mid")} src={midLink} />
-                <X.LaneImg onClick={() => onHandle("Adc")} src={adcLink} />
-                <X.LaneImg onClick={() => onHandle("Sup")} src={supLink} />
               </X.LaneContainer>
 
               <X.Hr />

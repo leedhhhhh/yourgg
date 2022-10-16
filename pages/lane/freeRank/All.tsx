@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import * as X from "../../../styles/laneStyle/LaneStyle";
-import { playerNameState } from "../../api/atom";
+import { laneState, playerNameState } from "../../api/atom";
 import { getFreeRankInfo } from "../../games/FreeRank";
 import {
   adcLink,
@@ -12,13 +12,24 @@ import {
   supLink,
   topLink,
 } from "../../games/SoloRank";
+import Adc from "./Adc";
+import Jungle from "./Jungle";
+import Mid from "./Mid";
+import Support from "./Support";
+import Top from "./Top";
 
 function All() {
   const playerName = useRecoilValue(playerNameState);
+  const [lane, setLane] = useRecoilState(laneState);
+
   const { data: freeRankData, isLoading } = useQuery<ISoloRankProps>(
     "FreeRank",
     () => getFreeRankInfo(playerName)
   );
+
+  const onHandle = (data: string) => {
+    setLane(data);
+  };
 
   return (
     <X.MainContainer>
@@ -29,74 +40,158 @@ function All() {
         <X.Lane>라인전</X.Lane>
         <X.KdaContainer>킬뎃</X.KdaContainer>
       </X.InfoContainer>
+
       {/* 라인 */}
       <div>
         {freeRankData?.mostLanes.map((data) => (
           <>
-            <X.LineContainer>
-              <div>
-                <X.LineImage>
-                  {data.lane === "Top" && <X.LaneImg src={topLink} />}
-                  {data.lane === "Jug" && <X.LaneImg src={jugLink} />}
-                  {data.lane === "Mid" && <X.LaneImg src={midLink} />}
-                  {data.lane === "Adc" && <X.LaneImg src={adcLink} />}
-                  {data.lane === "Sup" && <X.LaneImg src={supLink} />}
-                </X.LineImage>
+            {data.lane === "Top" && (
+              <X.LineContainer onClick={() => onHandle("Top")}>
+                <div>
+                  <X.LineImage>
+                    <X.LaneImg onClick={() => onHandle("Top")} src={topLink} />
+                  </X.LineImage>
 
-                <X.Line>
-                  <X.LineText>
-                    {data.lane === "Top" && "Top"}
-                    {data.lane === "Jug" && "Jungle"}
-                    {data.lane === "Mid" && "Mid"}
-                    {data.lane === "Adc" && "Adc"}
-                    {data.lane === "Sup" && "Support"}
-                  </X.LineText>
-                  <X.LineGameText>{data.matchCount} 경기</X.LineGameText>
-                </X.Line>
+                  <X.Line>
+                    <X.LineText>{data.lane === "Top" && "Top"}</X.LineText>
+                    <X.LineGameText>{data.matchCount} 경기</X.LineGameText>
+                  </X.Line>
 
-                <X.LineWinRate>
-                  {Number(data.winRate).toFixed(0)}%
-                </X.LineWinRate>
-                <X.LineRole>{Number(data.role).toFixed(2)}</X.LineRole>
-                <X.LineRate>{Number(data.laning).toFixed(1)}</X.LineRate>
-                <X.LineKda>{Number(data.kda).toFixed(2)}</X.LineKda>
-              </div>
-            </X.LineContainer>
+                  <X.LineWinRate>
+                    {Number(data.winRate).toFixed(0)}%
+                  </X.LineWinRate>
+                  <X.LineRole>{Number(data.role).toFixed(2)}</X.LineRole>
+                  <X.LineRate>{Number(data.laning).toFixed(1)}</X.LineRate>
+                  <X.LineKda>{Number(data.kda).toFixed(2)}</X.LineKda>
+                </div>
+              </X.LineContainer>
+            )}
+            {data.lane === "Jug" && (
+              <X.LineContainer onClick={() => onHandle("Jug")}>
+                <div>
+                  <X.LineImage>
+                    <X.LaneImg onClick={() => onHandle("Jug")} src={jugLink} />
+                  </X.LineImage>
+
+                  <X.Line>
+                    <X.LineText>{data.lane === "Jug" && "Jungle"}</X.LineText>
+                    <X.LineGameText>{data.matchCount} 경기</X.LineGameText>
+                  </X.Line>
+
+                  <X.LineWinRate>
+                    {Number(data.winRate).toFixed(0)}%
+                  </X.LineWinRate>
+                  <X.LineRole>{Number(data.role).toFixed(2)}</X.LineRole>
+                  <X.LineRate>{Number(data.laning).toFixed(1)}</X.LineRate>
+                  <X.LineKda>{Number(data.kda).toFixed(2)}</X.LineKda>
+                </div>
+              </X.LineContainer>
+            )}
+            {data.lane === "Mid" && (
+              <X.LineContainer onClick={() => onHandle("Mid")}>
+                <div>
+                  <X.LineImage>
+                    <X.LaneImg onClick={() => onHandle("Mid")} src={midLink} />
+                  </X.LineImage>
+
+                  <X.Line>
+                    <X.LineText>{data.lane === "Mid" && "Mid"}</X.LineText>
+                    <X.LineGameText>{data.matchCount} 경기</X.LineGameText>
+                  </X.Line>
+
+                  <X.LineWinRate>
+                    {Number(data.winRate).toFixed(0)}%
+                  </X.LineWinRate>
+                  <X.LineRole>{Number(data.role).toFixed(2)}</X.LineRole>
+                  <X.LineRate>{Number(data.laning).toFixed(1)}</X.LineRate>
+                  <X.LineKda>{Number(data.kda).toFixed(2)}</X.LineKda>
+                </div>
+              </X.LineContainer>
+            )}
+            {data.lane === "Adc" && (
+              <X.LineContainer onClick={() => onHandle("Adc")}>
+                <div>
+                  <X.LineImage>
+                    <X.LaneImg onClick={() => onHandle("Adc")} src={adcLink} />
+                  </X.LineImage>
+
+                  <X.Line>
+                    <X.LineText>{data.lane === "Adc" && "Adc"}</X.LineText>
+                    <X.LineGameText>{data.matchCount} 경기</X.LineGameText>
+                  </X.Line>
+
+                  <X.LineWinRate>
+                    {Number(data.winRate).toFixed(0)}%
+                  </X.LineWinRate>
+                  <X.LineRole>{Number(data.role).toFixed(2)}</X.LineRole>
+                  <X.LineRate>{Number(data.laning).toFixed(1)}</X.LineRate>
+                  <X.LineKda>{Number(data.kda).toFixed(2)}</X.LineKda>
+                </div>
+              </X.LineContainer>
+            )}
+            {data.lane === "Sup" && (
+              <X.LineContainer onClick={() => onHandle("Sup")}>
+                <div>
+                  <X.LineImage>
+                    <X.LaneImg onClick={() => onHandle("Sup")} src={supLink} />
+                  </X.LineImage>
+
+                  <X.Line>
+                    <X.LineText>{data.lane === "Sup" && "Support"}</X.LineText>
+                    <X.LineGameText>{data.matchCount} 경기</X.LineGameText>
+                  </X.Line>
+
+                  <X.LineWinRate>
+                    {Number(data.winRate).toFixed(0)}%
+                  </X.LineWinRate>
+                  <X.LineRole>{Number(data.role).toFixed(2)}</X.LineRole>
+                  <X.LineRate>{Number(data.laning).toFixed(1)}</X.LineRate>
+                  <X.LineKda>{Number(data.kda).toFixed(2)}</X.LineKda>
+                </div>
+              </X.LineContainer>
+            )}
           </>
         ))}
       </div>
 
       {/* 챔프 */}
-      <div>
-        {freeRankData?.mostChampions.map((data) => (
-          <>
-            <X.LineContainer>
-              <X.LineImage>
-                <X.ChampImg src={data.imageUrl} />
-                {data.lane === "Top" && <X.ChampImg2 src={topLink} />}
-                {data.lane === "Jug" && <X.ChampImg2 src={jugLink} />}
-                {data.lane === "Mid" && <X.ChampImg2 src={midLink} />}
-                {data.lane === "Adc" && <X.ChampImg2 src={adcLink} />}
-                {data.lane === "Sup" && <X.ChampImg2 src={supLink} />}
-              </X.LineImage>
+      {lane === "All" && (
+        <div>
+          {freeRankData?.mostChampions.map((data) => (
+            <>
+              <X.LineContainer>
+                <X.LineImage>
+                  <X.ChampImg src={data.imageUrl} />
+                  {data.lane === "Top" && <X.ChampImg2 src={topLink} />}
+                  {data.lane === "Jug" && <X.ChampImg2 src={jugLink} />}
+                  {data.lane === "Mid" && <X.ChampImg2 src={midLink} />}
+                  {data.lane === "Adc" && <X.ChampImg2 src={adcLink} />}
+                  {data.lane === "Sup" && <X.ChampImg2 src={supLink} />}
+                </X.LineImage>
 
-              <X.Champ>
-                <X.ChampText>{data.name}</X.ChampText>
-                <X.LineGameText>{data.matchCount} games</X.LineGameText>
-              </X.Champ>
+                <X.Champ>
+                  <X.ChampText>{data.name}</X.ChampText>
+                  <X.LineGameText>{data.matchCount} games</X.LineGameText>
+                </X.Champ>
 
-              <div>
-                <X.ChampWinRate>
-                  {Number(data.winRate).toFixed(0)}%
-                </X.ChampWinRate>
-                <X.ChampRole>{Number(data.role).toFixed(2)}</X.ChampRole>
-                <X.ChampRate>{Number(data.laning).toFixed(1)}</X.ChampRate>
-                <X.ChampKda>{Number(data.kda).toFixed(2)}</X.ChampKda>
-              </div>
-            </X.LineContainer>
-          </>
-        ))}
-      </div>
+                <div>
+                  <X.ChampWinRate>
+                    {Number(data.winRate).toFixed(0)}%
+                  </X.ChampWinRate>
+                  <X.ChampRole>{Number(data.role).toFixed(2)}</X.ChampRole>
+                  <X.ChampRate>{Number(data.laning).toFixed(1)}</X.ChampRate>
+                  <X.ChampKda>{Number(data.kda).toFixed(2)}</X.ChampKda>
+                </div>
+              </X.LineContainer>
+            </>
+          ))}
+        </div>
+      )}
+      {lane === "Top" && <Top />}
+      {lane === "Jug" && <Jungle />}
+      {lane === "Mid" && <Mid />}
+      {lane === "Adc" && <Adc />}
+      {lane === "Sup" && <Support />}
     </X.MainContainer>
   );
 }

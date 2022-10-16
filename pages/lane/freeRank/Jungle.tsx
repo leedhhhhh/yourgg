@@ -41,7 +41,7 @@ function Jungle() {
                   </X.LineImage>
 
                   <X.Line>
-                    <X.LineText>{data.lane === "Jug" && "Jug"}</X.LineText>
+                    <X.LineText>{data.lane === "Jug" && "Jungle"}</X.LineText>
                     <X.LineGameText>{data.matchCount} 경기</X.LineGameText>
                   </X.Line>
 

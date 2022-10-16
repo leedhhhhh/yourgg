@@ -42,7 +42,7 @@ function Support() {
                   </X.LineImage>
 
                   <X.Line>
-                    <X.LineText>{data.lane === "Sup" && "Sup"}</X.LineText>
+                    <X.LineText>{data.lane === "Sup" && "Support"}</X.LineText>
                     <X.LineGameText>{data.matchCount} 경기</X.LineGameText>
                   </X.Line>
 
