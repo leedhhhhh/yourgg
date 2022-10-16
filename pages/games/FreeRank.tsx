@@ -11,6 +11,7 @@ import Top from "../lane/freeRank/Top";
 import Image from "next/image";
 import * as X from "../../styles/gameStyle/SoloRankStyle";
 import TierGraph from "../graph/FreeTierGraph";
+import Loading from "../loading/Loading";
 
 //이미지 링크 정리
 export const allLink =
@@ -75,48 +76,54 @@ function FreeRank() {
   };
   return (
     <>
-      <div>
-        <X.PlayerInfo>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
           <div>
-            <X.Role>{Number(freeRankData?.role).toFixed(2)}</X.Role>{" "}
-            <X.RoleText>인분</X.RoleText>
+            <X.PlayerInfo>
+              <div>
+                <X.Role>{Number(freeRankData?.role).toFixed(2)}</X.Role>{" "}
+                <X.RoleText>인분</X.RoleText>
+              </div>
+              <div>
+                <X.Role>
+                  {Number(freeRankData?.laning).toFixed(1)} :{" "}
+                  {eval(
+                    `10 - ${Number(freeRankData?.laning).toFixed(1)}`
+                  ).toFixed(1)}
+                </X.Role>
+                <X.LaningText>라인전</X.LaningText>
+              </div>
+              <div>
+                <X.Role>{Number(freeRankData?.kda).toFixed(2)}</X.Role>{" "}
+                <X.KdaText>KDA</X.KdaText>
+              </div>
+            </X.PlayerInfo>
+            <X.GraphInfo>
+              <TierGraph />
+            </X.GraphInfo>
           </div>
-          <div>
-            <X.Role>
-              {Number(freeRankData?.laning).toFixed(1)} :{" "}
-              {eval(`10 - ${Number(freeRankData?.laning).toFixed(1)}`).toFixed(
-                1
-              )}
-            </X.Role>
-            <X.LaningText>라인전</X.LaningText>
-          </div>
-          <div>
-            <X.Role>{Number(freeRankData?.kda).toFixed(2)}</X.Role>{" "}
-            <X.KdaText>KDA</X.KdaText>
-          </div>
-        </X.PlayerInfo>
-        <X.GraphInfo>
-          <TierGraph />
-        </X.GraphInfo>
-      </div>
 
-      <X.LaneContainer>
-        <X.LaneImg onClick={() => onHandle("All")} src={allLink} />
-        <X.LaneImg onClick={() => onHandle("Top")} src={topLink} />
-        <X.LaneImg onClick={() => onHandle("Jug")} src={jugLink} />
-        <X.LaneImg onClick={() => onHandle("Mid")} src={midLink} />
-        <X.LaneImg onClick={() => onHandle("Adc")} src={adcLink} />
-        <X.LaneImg onClick={() => onHandle("Sup")} src={supLink} />
-      </X.LaneContainer>
+          <X.LaneContainer>
+            <X.LaneImg onClick={() => onHandle("All")} src={allLink} />
+            <X.LaneImg onClick={() => onHandle("Top")} src={topLink} />
+            <X.LaneImg onClick={() => onHandle("Jug")} src={jugLink} />
+            <X.LaneImg onClick={() => onHandle("Mid")} src={midLink} />
+            <X.LaneImg onClick={() => onHandle("Adc")} src={adcLink} />
+            <X.LaneImg onClick={() => onHandle("Sup")} src={supLink} />
+          </X.LaneContainer>
 
-      <X.Hr />
+          <X.Hr />
 
-      {lane === "All" && <All />}
-      {lane === "Top" && <Top />}
-      {lane === "Jug" && <Jungle />}
-      {lane === "Mid" && <Mid />}
-      {lane === "Adc" && <Adc />}
-      {lane === "Sup" && <Support />}
+          {lane === "All" && <All />}
+          {lane === "Top" && <Top />}
+          {lane === "Jug" && <Jungle />}
+          {lane === "Mid" && <Mid />}
+          {lane === "Adc" && <Adc />}
+          {lane === "Sup" && <Support />}
+        </>
+      )}
     </>
   );
 }
